@@ -1,24 +1,22 @@
-# Candidate Notes & Implementation Assumptions
+# FitLife Pro Development Notes
 
-## Design & Aesthetics Decisions
+This document highlights the design decisions, core assumptions, and quick verification steps for the custom WordPress and Shopify implementations.
 
-- **Color Palette & Dark Mode**: Chosen slate backgrounds (`#0f172a`, `#1e293b`) paired with emerald green (`#10b981`) and cyan (`#06b6d4`) accents. These colors guarantee a high contrast ratio (well above the WCAG 2.1 AA requirement of 4.5:1 for normal text) when rendering on dark backgrounds.
-- **Glassmorphic Layouts**: Utilized CSS variables, thin transparent borders, and `backdrop-filter: blur(12px)` to achieve premium modern dashboard visuals for the cards, header, and WooCommerce checkout boxes.
-- **Grid Layouts**: Pure CSS Grid and Flexbox were utilized for all page column frameworks (no Bootstrap or heavyweight layout framework enqueued) to keep load time minimal and maintain responsive, mobile-first compatibility.
+## 1. Design & Accessibility
+* **Color Palette**: Premium light theme utilizing HSL Slate, Emerald Green, and Cyan accents (WCAG 2.1 AA compliant, contrast > 4.5:1).
+* **Layouts**: Pure responsive CSS Grid and Flexbox (no Bootstrap or heavy frameworks).
+* **Accessibility (WCAG AA)**: Keyboard-navigable walker menus, visible focus outlines, skip-to-content targets, and descriptive screen-reader tags (`.screen-reader-text`) for generic links.
 
-## Developer Assumptions
+## 2. Technical Decisions & Assumptions
+* **WooCommerce**: Converted Cart and Checkout to classic shortcodes to preserve PHP hooks. Fixed the notices wrapper grid alignment and added custom checkout billing fields saved to order meta.
+* **Database & Security**: Hardened site by blocking XML-RPC and implementing IP-based login rate limiting using `$wpdb->prepare()`.
+* **Gutenberg Blocks**: Compiled React/JSX blocks with `@wordpress/scripts`. Rendered dynamic blocks via server-side PHP (`render_callback`).
+* **Caching**: Database queries for Trainers and Programs CPTs are cached using the Transients API for 12 hours (cache automatically flushed on post updates).
+* **Shopify**: Custom Liquid sections use native filters and mocks for checkout/inventory updates, falling back to mock mode on local hosts.
 
-1. **WooCommerce Integration**: It is assumed WooCommerce is installed and active in the local database. The "Fitness Bundle" product type registered hooks directly into WooCommerce default templates.
-2. **Gutenberg compilation**: We assume Gutenberg editor assets are loaded using `block.json`. The custom block utilizes `@wordpress/scripts` to compile JSX into standard ES5 JS and outputs a separate `style-index.css` file for page rendering.
-3. **Login Page Rate Limiter**: The login rate limiter is IP-based. In case of multiple users sharing the same local proxy or office IP, they might get blocked concurrently; however, for local site verification and security hardening purposes, IP-based blocking represents the standard way to prevent brute force attacks.
-4. **Direct DB Queries**: To demonstrate `$wpdb->prepare()` utilization, a custom table (`wp_fitlife_login_attempts`) was registered upon `init` to record unsuccessful login attempts. All inserts and queries on this table utilize `$wpdb->prepare()` securely.
-5. **XML-RPC**: Disabling XML-RPC block via `.htaccess` assumes an Apache web server setup (standard for Laragon environments). For Nginx settings, Nginx location blocks would need to be updated.
-
-## Verification Checklist
-
-- **Theme Switched**: Switch Theme to `FitLife Pro Theme` in WordPress dashboard.
-- **Plugin Active**: Activate `FitLife Core Plugin` in WordPress dashboard.
-- **Custom Columns**: Check Trainer list view (`/wp-admin/edit.php?post_type=fitlife_trainer`) and Program list view (`/wp-admin/edit.php?post_type=fitlife_program`) to see extra columns populated.
-- **REST API check**: Invoke GET requests at `/wp-json/fitlife/v1/trainers` and `/wp-json/fitlife/v1/programs` to check data structure return values.
-- **Shortcode test**: Test `[fitlife_trainers]` and `[fitlife_programs]` inside standard Gutenberg pages.
-- **Gutenberg Editor**: Add "Program Highlight" block or "Trainer Spotlight" block inside post editors.
+## 3. Quick Verification Steps
+1. **Theme & Plugin**: Switch theme to `FitLife Pro Theme` and activate the `FitLife Core` plugin.
+2. **CPT Lists**: Verify custom admin columns for trainers and programs in `wp-admin`.
+3. **REST API**: Test routes `/wp-json/fitlife/v1/trainers` and `/wp-json/fitlife/v1/programs`.
+4. **Shortcodes**: Add `[fitlife_trainers]` and `[fitlife_programs]` to any page.
+5. **Shopify Custom CSS**: Inject `fitwear-custom.css` overrides directly in the Theme Customizer under Custom CSS to force clean square cards.
