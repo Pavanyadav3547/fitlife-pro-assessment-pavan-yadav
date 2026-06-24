@@ -161,6 +161,16 @@ To verify the completed storefront, administrative controls, and checkout flows 
 
 ---
 
+# Shopify Store Details
+
+Store URL:
+https://fitwear-dev-gifmseo4.myshopify.com
+
+Collaborator Access:
+Collaborator invitation has been sent to [assessments@fitlifepro.com](mailto:assessments@fitlifepro.com) with access to review the FitWear Shopify storefront implementation.
+
+---
+
 ## Key Feature Integrations
 
 * **Accessible Navigation Menu**: Built on custom `Walker_Nav_Menu` using `FitLife_Walker_Nav_Menu` inside `functions.php` and matching JavaScript key handlers in `navigation.js`. Compliant with WCAG 2.1 AA keyboard tab traversal, Escape close triggers, and aria-expanded state tags.
