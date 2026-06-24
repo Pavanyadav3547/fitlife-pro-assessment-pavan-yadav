@@ -1,0 +1,55 @@
+/* Style for Trainer Spotlight Block */
+.fitlife-trainer-spotlight-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: var(--space-md);
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-image {
+    flex: 0 0 150px;
+    max-width: 150px;
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-image img,
+.fitlife-trainer-spotlight-banner .spotlight-image .fallback-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-brand-primary);
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-content {
+    flex: 1;
+    min-width: 250px;
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 4px;
+    color: var(--color-white);
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-content .specialty {
+    font-weight: 600;
+    color: var(--color-brand-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-content .certification {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.fitlife-trainer-spotlight-banner .spotlight-content .bio {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-md);
+}

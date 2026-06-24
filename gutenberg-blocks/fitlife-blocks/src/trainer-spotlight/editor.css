@@ -1,0 +1,13 @@
+/* Editor-specific styles for Trainer Spotlight Block */
+.fitlife-trainer-spotlight-editor-wrapper {
+    border: 2px dashed rgba(16, 185, 129, 0.4) !important;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.components-placeholder.wp-block-fitlife-trainer-spotlight {
+    min-height: auto;
+    padding: var(--space-md);
+}

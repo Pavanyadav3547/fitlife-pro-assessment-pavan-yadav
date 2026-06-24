@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "fitlife/program-highlight",
+  "version": "1.0.0",
+  "title": "Program Highlight",
+  "category": "design",
+  "icon": "welcome-learn-more",
+  "description": "Highlight a special fitness program with CTA and badge.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "FitLife Special Program"
+    },
+    "description": {
+      "type": "string",
+      "default": "Elevate your strength and endurance with this tailored program."
+    },
+    "bgImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Join Today"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "difficulty": {
+      "type": "string",
+      "default": "Beginner"
+    }
+  },
+  "textdomain": "fitlife",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

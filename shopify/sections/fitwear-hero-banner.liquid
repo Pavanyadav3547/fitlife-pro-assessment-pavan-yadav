@@ -1,0 +1,167 @@
+<!-- HTML structure for FitWear Hero Banner -->
+<section id="fitwear-hero-{{ section.id }}" class="fitwear-hero">
+  <div class="fitwear-hero-overlay"></div>
+  <div class="fitwear-hero-container">
+    <div class="fitwear-hero-content">
+      {%- if section.settings.headline != blank -%}
+        <h1 class="fitwear-hero-title">{{ section.settings.headline | escape }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="fitwear-hero-subtitle">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="fitwear-hero-cta">
+          {{ section.settings.cta_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<!-- Liquid styles for dynamic schema controls -->
+<style>
+  #fitwear-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    {%- if section.settings.background_image != blank -%}
+      background-image: url('{{ section.settings.background_image | image_url: width: 1800 }}');
+    {%- else -%}
+      background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    {%- endif -%}
+    overflow: hidden;
+  }
+  
+  #fitwear-hero-{{ section.id }} .fitwear-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  #fitwear-hero-{{ section.id }} .fitwear-hero-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #fitwear-hero-{{ section.id }} .fitwear-hero-content {
+    max-width: 700px;
+  }
+
+  #fitwear-hero-{{ section.id }} .fitwear-hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+  }
+
+  #fitwear-hero-{{ section.id }} .fitwear-hero-subtitle {
+    font-size: 1.25rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  #fitwear-hero-{{ section.id }} .fitwear-hero-cta {
+    display: inline-block;
+    background-color: #10b981;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 12px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #fitwear-hero-{{ section.id }} .fitwear-hero-cta:hover {
+    transform: translateY(-2px);
+    background-color: #06b6d4;
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    #fitwear-hero-{{ section.id }} {
+      min-height: 400px;
+    }
+    #fitwear-hero-{{ section.id }} .fitwear-hero-title {
+      font-size: 2.25rem;
+    }
+    #fitwear-hero-{{ section.id }} .fitwear-hero-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FitWear Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Premium Activewear for FitLife"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Designed for maximum performance, durability, and comfort."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Button URL"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 90,
+      "step": 10,
+      "default": 40,
+      "unit": "%"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FitWear Hero Banner"
+    }
+  ]
+}
+{% endschema %}

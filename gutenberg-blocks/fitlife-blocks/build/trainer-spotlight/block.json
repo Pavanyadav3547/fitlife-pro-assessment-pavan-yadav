@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "fitlife/trainer-spotlight",
+  "version": "1.0.0",
+  "title": "Trainer Spotlight",
+  "category": "design",
+  "icon": "businessman",
+  "description": "Spotlight a selected trainer from your directory dynamically.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "trainerId": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "textdomain": "fitlife",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

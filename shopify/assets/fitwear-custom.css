@@ -1,0 +1,654 @@
+/* --- FitWear Custom Styling CSS --- */
+
+/* Theme Accent Color Settings */
+:root {
+  --shopify-accent: #10b981;
+  --shopify-accent-hover: #06b6d4;
+  --shopify-bg-card: #1e293b;
+  --shopify-bg-body: #0f172a;
+  --shopify-text-primary: #ffffff;
+  --shopify-text-muted: #94a3b8;
+  --shopify-radius: 8px;
+}
+
+/* Collection Grid Styles */
+.featured-collection-section {
+  padding: 60px 0;
+  background-color: var(--shopify-bg-body);
+  color: var(--shopify-text-primary);
+  font-family: 'Outfit', sans-serif;
+}
+
+.collection-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.collection-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.collection-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #ffffff 40%, var(--shopify-accent-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.collection-category-group {
+  margin-bottom: 45px;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--shopify-accent);
+  padding-left: 12px;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+/* Product Card Styling */
+.featured-collection-section .product-card {
+  background: var(--shopify-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--shopify-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.featured-collection-section .product-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(16, 185, 129, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.featured-collection-section .product-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  background-color: #0f172a;
+}
+
+.featured-collection-section .product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.featured-collection-section .product-card:hover .product-image {
+  transform: scale(1.03);
+}
+
+.featured-collection-section .product-info {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.featured-collection-section .product-title-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--shopify-text-primary);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.featured-collection-section .product-price-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featured-collection-section .product-price-val {
+  color: var(--shopify-accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Product Metafields */
+.featured-collection-section .product-metafield-specs {
+  padding: 0 16px 12px 16px;
+  font-size: 0.8rem;
+  color: var(--shopify-text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  margin-top: auto;
+}
+
+.featured-collection-section .metafield-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.featured-collection-section .metafield-label {
+  font-weight: 600;
+}
+
+.featured-collection-section .product-card-actions {
+  padding: 12px 16px 16px 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.featured-collection-section .btn-add-to-cart-ajax {
+  flex-grow: 1;
+  background-color: var(--shopify-accent);
+  color: #0f172a;
+  border: none;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.featured-collection-section .btn-add-to-cart-ajax:hover {
+  background-color: var(--shopify-accent-hover);
+  color: #ffffff;
+}
+
+.featured-collection-section .btn-size-guide {
+  background-color: transparent;
+  color: var(--shopify-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.featured-collection-section .btn-size-guide:hover {
+  border-color: var(--shopify-text-primary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Size Guide Modal Styling --- */
+.fitwear-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.fitwear-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fitwear-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.fitwear-modal-container {
+  position: relative;
+  background: var(--shopify-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--shopify-radius);
+  max-width: 550px;
+  width: 90%;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  color: var(--shopify-text-primary);
+}
+
+.fitwear-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.75rem;
+  background: none;
+  border: none;
+  color: var(--shopify-text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.fitwear-modal-close:hover {
+  color: #ffffff;
+}
+
+.fitwear-modal-header h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 10px;
+}
+
+.fitwear-size-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.fitwear-size-table th, 
+.fitwear-size-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.fitwear-size-table th {
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.fitwear-size-note {
+  font-size: 0.85rem;
+  color: var(--shopify-text-muted);
+  line-height: 1.5;
+}
+
+/* --- Slide-Out Cart Drawer Styling --- */
+.fitwear-cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  visibility: hidden;
+  transition: visibility 0.4s ease;
+}
+
+.fitwear-cart-drawer.active {
+  visibility: visible;
+}
+
+.fitwear-cart-drawer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.fitwear-cart-drawer.active .fitwear-cart-drawer-overlay {
+  opacity: 1;
+}
+
+.fitwear-cart-drawer-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 100%;
+  background: var(--shopify-bg-card);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--shopify-text-primary);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fitwear-cart-drawer.active .fitwear-cart-drawer-container {
+  transform: translateX(0);
+}
+
+.cart-drawer-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-drawer-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.cart-drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: var(--shopify-text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cart-drawer-close:hover {
+  color: #ffffff;
+}
+
+/* Free Shipping Bar */
+.free-shipping-bar-container {
+  padding: 15px 20px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.free-shipping-message {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--shopify-accent);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Cart Items Body */
+.cart-drawer-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.cart-empty-text {
+  text-align: center;
+  color: var(--shopify-text-muted);
+  margin-top: 40px;
+}
+
+.cart-drawer-item {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.cart-item-image img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  color: var(--shopify-accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.cart-item-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item-qty-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.qty-val {
+  padding: 0 8px;
+  font-size: 0.9rem;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Drawer Upsell Widget */
+.cart-drawer-upsell-box {
+  background-color: rgba(16, 185, 129, 0.04);
+  border: 1px dashed var(--shopify-accent);
+  border-radius: 6px;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+.cart-drawer-upsell-box h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--shopify-accent);
+  font-weight: 700;
+}
+
+.upsell-item-card {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.upsell-img-wrapper img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.upsell-info h5 {
+  margin: 0 0 2px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.upsell-info span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--shopify-accent);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.btn-upsell-add {
+  background-color: var(--shopify-accent);
+  color: #0f172a;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-upsell-add:hover {
+  background-color: var(--shopify-accent-hover);
+  color: #ffffff;
+}
+
+/* Cart Footer */
+.cart-drawer-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cart-drawer-subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#cart-drawer-subtotal-val {
+  color: var(--shopify-accent);
+}
+
+.cart-drawer-footer-note {
+  font-size: 0.8rem;
+  color: var(--shopify-text-muted);
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.cart-drawer-checkout-btn {
+  display: block;
+  text-align: center;
+  background-color: var(--shopify-accent);
+  color: #0f172a;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+  transition: all 0.2s ease;
+}
+
+.cart-drawer-checkout-btn:hover {
+  background-color: var(--shopify-accent-hover);
+  color: #ffffff;
+}
+
+/* --- Shopify Dawn Theme Default Collection Page Overrides --- */
+/* Force uniform 1:1 Aspect Ratio on all product card image containers */
+.card-wrapper .card__inner .media--adapt,
+.card-wrapper .card__inner .media,
+.card-wrapper .card__media .media,
+.card-wrapper .media,
+.product-grid .card__inner .media,
+.product-grid .media,
+.grid__item .card__inner .media,
+.grid__item .media {
+  padding-bottom: 100% !important; /* Force 1:1 Aspect Ratio */
+  height: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: var(--shopify-radius, 8px) !important;
+  background-color: #f3f4f6 !important; /* Consistent clean bounding box */
+}
+
+/* Align and format images inside the forced aspect-ratio wrappers */
+.card-wrapper .card__inner .media img,
+.card-wrapper .card__media .media img,
+.card-wrapper .media img,
+.product-grid .card__inner .media img,
+.product-grid .media img,
+.grid__item .card__inner .media img,
+.grid__item .media img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Contain keeps products fully visible without cropping */
+  transition: transform 0.3s ease !important;
+}
+
+/* Hover micro-zoom interaction on cards */
+.card-wrapper:hover .media img,
+.product-grid .grid__item:hover .media img {
+  transform: scale(1.04) !important;
+}
+
+/* Global fallback for any direct product card images (forces 1:1 square) */
+.product-card img,
+.grid__item img,
+[class*="product-card"] img,
+[class*="grid__item"] img {
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  background-color: #f3f4f6 !important;
+  border-radius: var(--shopify-radius, 8px) !important;
+}
+
+/* Ensure the title text height is uniform (supports 1 or 2 lines) to keep prices aligned */
+.card-wrapper .card__information,
+.product-grid .card__information {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 15px 10px !important;
+}
+
+.card-wrapper .card__heading,
+.product-grid .card__heading,
+.product-card__title,
+[class*="product-card"] h3,
+[class*="product-card"] h4,
+.grid__item h3,
+.grid__item h4 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  min-height: 44px !important; /* Reserves height for up to 2 lines of text */
+  margin: 0 0 8px 0 !important;
+  line-height: 1.4 !important;
+  display: block !important;
+}
+
+.card-wrapper .price,
+.product-grid .price,
+.product-card .price {
+  margin-top: auto !important; /* Pushes the price block to the bottom of the card information */
+}
+
+

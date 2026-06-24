@@ -1,0 +1,17 @@
+/* Editor-specific styles for Program Highlight block */
+.wp-block-fitlife-program-highlight {
+    border: 2px dashed rgba(16, 185, 129, 0.3) !important;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.wp-block-fitlife-program-highlight::before {
+    content: "Program Highlight Editor Preview";
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #10b981;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+}

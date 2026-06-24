@@ -1,0 +1,77 @@
+<!-- ajax-cart-drawer.liquid -->
+<div id="fitwear-cart-drawer" class="fitwear-cart-drawer" aria-hidden="true">
+  <div class="fitwear-cart-drawer-overlay" data-close-drawer></div>
+  <div class="fitwear-cart-drawer-container">
+    
+    <!-- Header -->
+    <div class="cart-drawer-header">
+      <h3>Your Gear Cart (<span id="cart-drawer-count">0</span>)</h3>
+      <button type="button" class="cart-drawer-close" data-close-drawer aria-label="Close cart drawer">&times;</button>
+    </div>
+
+    <!-- Free Shipping Progress Bar (Task 7.2) -->
+    <div class="free-shipping-bar-container">
+      <div class="free-shipping-message" id="free-shipping-msg">
+        Add <span id="free-shipping-remaining">$100.00</span> more for Free Shipping!
+      </div>
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar-fill" id="shipping-progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Scrollable Items Area -->
+    <div class="cart-drawer-body">
+      <div id="cart-drawer-items-list" class="cart-drawer-items">
+        <!-- Rendered dynamically by JavaScript -->
+        <p class="cart-empty-text">Your cart is currently empty.</p>
+      </div>
+
+      <!-- Complementary Upsell Section (Task 7.2) -->
+      <div id="cart-drawer-upsell-container" class="cart-drawer-upsell-box" style="display: none;">
+        <h4>Complete the Look</h4>
+        <div class="upsell-item-card">
+          <div class="upsell-img-wrapper" id="upsell-product-img-box">
+            <!-- image -->
+          </div>
+          <div class="upsell-info">
+            <h5 id="upsell-product-title">FitWear Active T-Shirt</h5>
+            <span id="upsell-product-price">$28.00</span>
+            <button type="button" id="btn-add-upsell-ajax" class="btn-upsell-add" data-upsell-variant-id="">
+              Add to Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Summary & Checkout -->
+    <div class="cart-drawer-footer">
+      <div class="cart-drawer-subtotal">
+        <span>Subtotal</span>
+        <span id="cart-drawer-subtotal-val">$0.00</span>
+      </div>
+      <p class="cart-drawer-footer-note">Shipping & taxes calculated at checkout.</p>
+      <a href="/checkout" class="cart-drawer-checkout-btn">
+        Proceed to Checkout
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Dynamic Shopify Products list for upsell selection (Task 7.2) -->
+<script id="fitwear-upsell-products-json" type="application/json">
+  [
+    {%- for product in collections.all.products -%}
+      {
+        "id": {{ product.id | json }},
+        "title": {{ product.title | json }},
+        "price": {{ product.price | json }},
+        "variant_id": {{ product.first_available_variant.id | json }},
+        "image": {{ product.featured_image | image_url: width: 100 | json }},
+        "tags": {{ product.tags | json }}
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+</script>
+

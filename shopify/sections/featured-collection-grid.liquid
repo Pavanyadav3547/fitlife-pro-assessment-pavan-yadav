@@ -1,0 +1,175 @@
+<section id="featured-collection-{{ section.id }}" class="featured-collection-section">
+  <div class="collection-container">
+    {%- if section.settings.title != blank -%}
+      <div class="collection-header">
+        <h2 class="collection-title">{{ section.settings.title | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- assign selected_collection = collections[section.settings.selected_collection] -%}
+
+    {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
+      {% comment %}
+        Demonstrate Liquid filters (Task 6.2):
+        1. 'where' filter: Filter to available (in stock) products
+        2. 'sort' filter: Sort products by price ascending
+      {% endcomment %}
+      {%- assign all_products = selected_collection.products -%}
+      {%- assign available_products = all_products | where: "available", true -%}
+      {%- assign sorted_products = available_products | sort: "price" -%}
+      {%- assign limit_count = section.settings.products_to_show -%}
+
+      <!-- Demonstrate Product Grouping by Tag Category -->
+      <div class="collection-groups">
+        {%- assign category_tags = "Tops, Bottoms, Accessories" | split: ", " -%}
+        
+        {%- for cat_tag in category_tags -%}
+          {%- assign has_products = false -%}
+          
+          {%- capture category_html -%}
+            <div class="collection-category-group">
+              <h3 class="category-title">{{ cat_tag }} Collection</h3>
+              <div class="collection-grid">
+                {%- assign match_count = 0 -%}
+                {%- for product in sorted_products -%}
+                  {%- assign product_has_tag = false -%}
+                  {%- for tag in product.tags -%}
+                    {%- assign downcase_tag = tag | downcase -%}
+                    {%- assign downcase_cat = cat_tag | downcase -%}
+                    {%- if downcase_tag == downcase_cat -%}
+                      {%- assign product_has_tag = true -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- if product_has_tag and match_count < limit_count -%}
+                    {%- assign has_products = true -%}
+                    {%- assign match_count = match_count | plus: 1 -%}
+                    
+                    <div class="product-card" id="product-card-{{ product.id }}">
+                      <a href="{{ product.url }}" class="product-link">
+                        <div class="product-image-wrapper">
+                          {%- if product.featured_image != blank -%}
+                           <img src="{{ product.featured_image | image_url: width: 450 }}" alt="{{ product.title | escape }}" class="product-image" loading="lazy" width="450" height="{{ 450 | divided_by: product.featured_image.aspect_ratio | round }}" >
+                          {%- else -%}
+                            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {%- endif -%}
+                        </div>
+                        
+                        <div class="product-info">
+                          <h4 class="product-title-text">{{ product.title }}</h4>
+                          <div class="product-price-box">
+                            <span class="product-price-val">{{ product.price | money }}</span>
+                          </div>
+                        </div>
+                      </a>
+
+                      <!-- Metafields Display (Task 6.2) -->
+                      <div class="product-metafield-specs">
+                        {%- if product.metafields.custom.fabric_composition != blank -%}
+                          <div class="metafield-item">
+                            <span class="metafield-label">Fabric:</span>
+                            <span class="metafield-val">
+                              {%- if product.metafields.custom.fabric_composition.value.first -%}
+                                {{ product.metafields.custom.fabric_composition.value | join: ", " }}
+                              {%- else -%}
+                                {{ product.metafields.custom.fabric_composition.value | default: product.metafields.custom.fabric_composition }}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        {%- endif -%}
+                        {%- if product.metafields.custom.fit_type != blank -%}
+                          <div class="metafield-item">
+                            <span class="metafield-label">Fit:</span>
+                            <span class="metafield-val">
+                              {%- if product.metafields.custom.fit_type.value.first -%}
+                                {{ product.metafields.custom.fit_type.value | join: ", " }}
+                              {%- else -%}
+                                {{ product.metafields.custom.fit_type.value | default: product.metafields.custom.fit_type }}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        {%- endif -%}
+                      </div>
+
+                      <!-- Size Guide & Add to Cart drawer triggers -->
+                      <div class="product-card-actions">
+                        {%- assign size_guide_val = product.metafields.custom.size_guide_url.value | default: product.metafields.custom.size_guide_url -%}
+                        {%- if size_guide_val != blank -%}
+                          <button type="button" class="btn-size-guide" data-size-url="{{ size_guide_val | escape }}">
+                            Size Guide
+                          </button>
+                        {%- endif -%}
+                        
+                        <button type="button" class="btn-add-to-cart-ajax" data-variant-id="{{ product.first_available_variant.id }}">
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endcapture -%}
+          
+          {%- if has_products -%}
+            {{ category_html }}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+    {%- else -%}
+      <!-- Fallback when no collection is selected -->
+      <div class="collection-fallback">
+        <p>No products found in this collection, or no collection is selected.</p>
+        <div class="collection-grid">
+          {%- for i in (1..4) -%}
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="product-info">
+                <h4 class="product-title-text">FitWear Sample Item {{ i }}</h4>
+                <div class="product-price-box">
+                  <span class="product-price-val">$45.00</span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection Grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "selected_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Wear Grid"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to Show per Category",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection Grid"
+    }
+  ]
+}
+{% endschema %}
