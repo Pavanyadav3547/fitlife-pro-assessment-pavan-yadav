@@ -1,4 +1,4 @@
-# FitLife Pro Custom WordPress Development Assessment
+# FitLife Pro WordPress, WooCommerce & Shopify Developer Assessment
 
 This repository contains the complete custom development for the FitLife Pro WordPress theme, core plugin, custom Gutenberg blocks, and WooCommerce customizations.
 
