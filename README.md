@@ -153,9 +153,9 @@ The following external libraries and dependencies were integrated to meet stylin
 
 To verify the completed storefront, administrative controls, and checkout flows on the staging site:
 
-* **Staging Site URL**: `http://fitlife-pro.test` (Local Laragon environment)
+* **Staging Site URL**: `https://honeydew-pelican-869842.hostingersite.com/` (Hostinger environment)
 * **Administrator Username**: `FitLife Pro`
-* **Administrator Password**: `FitLifeProPassword2026!`
+* **Administrator Password**: `@FitLife_Pro123`
 
 *(Note: If testing in your own local Laragon environment, use the local administrator credentials you set up during Step 1).*
 
